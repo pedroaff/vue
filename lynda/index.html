@@ -5,6 +5,9 @@
     <div class="container">
         <div class="card mt-5">
             <h2 class="card-header">Near-earth objects</h2>
+            <div class="m-3">
+                {{numAsteroids}}
+            </div>
             <table class="table">
                 <thead class="thead-light">
                     <th>#</th>
@@ -40,6 +43,11 @@
         el: '#app',
         data: {
             asteroids: [],
+        },
+        computed: {
+            numAsteroids: function() {
+                return this.asteroids.length;
+            },
         },
         created: function() {
             this.fetchApod();
