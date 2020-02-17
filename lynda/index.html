@@ -18,7 +18,11 @@
                     <th>Miss Distance</th>
                     <th>Actions</th>
                     <tbody>
-                        <tr v-for="(asteroid, index) in asteroids" :key="asteroid.neo_reference_id">
+                        <tr 
+                            v-for="(asteroid, index) in asteroids" 
+                            :key="asteroid.neo_reference_id"
+                            :style="getRowStyle(asteroid)"
+                        >
                             <td>{{index + 1}}</td>
                             <td>{{asteroid.name}}</td>
                             <td>{{getApproachDate(asteroid)}}</td>
@@ -87,7 +91,15 @@
             },
             remove: function(index) {
                 return this.asteroids.splice(index, 1);
-            }
+            },
+            getRowStyle: function(asteroid) {
+                if (asteroid.close_approach_data.length > 0) {
+                    return {
+                        border: 'solid 3px red',
+                        color: 'red,'
+                    };
+                };
+            },
         }
     });
 
