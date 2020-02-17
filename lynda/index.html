@@ -36,7 +36,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js" integrity="sha256-T/f7Sju1ZfNNfBh7skWn0idlCBcI3RwdLSS4/I7NQKQ=" crossorigin="anonymous"></script>
 
 <script>
-    var vm = new Vue({
+    new Vue({
         el: '#app',
         data: {
             asteroids: [],
@@ -46,11 +46,12 @@
         },
         methods: {
             fetchApod: function() {
+                const self = this;
                 const key = 'Rr5yMuJMlf7gK5euSvceg631tW0RicuyYxdyYTkt';
                 const url = 'https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=' + key;
                 axios.get(url)
                      .then(function (res) {
-                        vm.asteroids = res.data.near_earth_objects.slice(0, 10); 
+                        self.asteroids = res.data.near_earth_objects.slice(0, 10); 
                      });
             },
             getApproachDate: function(asteroid) {
