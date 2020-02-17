@@ -11,8 +11,9 @@
                     <th>Name</th>
                     <th>Close Approach Date</th>
                     <th>Miss Distance</th>
+                    <th>Actions</th>
                     <tbody>
-                        <tr v-for="(asteroid, index) in asteroids">
+                        <tr v-for="(asteroid, index) in asteroids" :key="asteroid.neo_reference_id">
                             <td>{{index + 1}}</td>
                             <td>{{asteroid.name}}</td>
                             <td>{{getApproachDate(asteroid)}}</td>
@@ -23,6 +24,7 @@
                                     </li>
                                 </ul>
                             </td>
+                            <td> <button @click="remove(index)" class="btn btn-warning">Remove</button></td>
                         </tr>
                     </tbody>
                 </thead>
@@ -48,7 +50,7 @@
                 const url = 'https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=' + key;
                 axios.get(url)
                      .then(function (res) {
-                        vm.asteroids = res.data.near_earth_objects.slice(0, 10);
+                        vm.asteroids = res.data.near_earth_objects.slice(0, 10); 
                      });
             },
             getApproachDate: function(asteroid) {
@@ -57,6 +59,9 @@
                 }
                 return 'N/A';
             },
+            remove: function(index) {
+                return this.asteroids.splice(index, 1);
+            }
         }
     });
 
